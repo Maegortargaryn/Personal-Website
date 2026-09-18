@@ -1,3 +1,9 @@
+import khoya from "../assets/images/khoya.jpg";
+import paneer from "../assets/images/paneer.jpg";
+import curd from "../assets/images/curd.jpg";
+import milk from "../assets/images/images.jpg";
+import frozenPeas from "../assets/images/frozen-peas.jpg";
+
 export const business = {
   name: "Sardar Vallabh Bhai Patel Dairy",
   owner: "Dinesh Singh",
@@ -11,27 +17,27 @@ export const products = [
   {
     name: "Khoya",
     description: "100% pure Khoya, prepared with care and suitable for traditional Indian sweets and desserts.",
-    image: "/src/assets/images/khoya.jpg",
+    image: khoya,
   },
   {
     name: "Paneer",
     description: "Fresh, soft and 100% pure Paneer, ideal for everyday cooking, restaurants and special occasions.",
-    image: "/src/assets/images/paneer.jpg",
+    image: paneer,
   },
   {
     name: "Curd",
     description: "Fresh and creamy curd for everyday meals and traditional Indian recipes.",
-    image: "/src/assets/images/curd.jpg",
+    image: curd,
   },
   {
     name: "Milk",
     description: "Fresh milk available for local customers and regular household requirements.",
-    image: "/src/assets/images/milk.jpg",
+    image: milk,
   },
   {
     name: "Frozen Peas",
     description: "Convenient frozen peas for everyday cooking and food preparation.",
-    image: "/src/assets/images/frozen-peas.jpg",
+    image: frozenPeas,
   },
 ];
 
