@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#174d35" />
+    <script>
+      window.addEventListener('error', function(e) {
+        document.body.innerHTML += '<div style="color:red; background:white; padding:20px; position:absolute; top:0; left:0; z-index:9999; font-size:14px;"><b>Error:</b> ' + e.message + '<br>' + e.filename + ':' + e.lineno + '</div>';
+      });
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="description" content="Sardar Vallabh Bhai Patel Dairy in Baraula, Kaushambi offers pure Khoya and fresh Paneer, Curd, Milk and Frozen Peas, with home delivery and bulk orders for nearby customers." />
     <meta property="og:title" content="Sardar Vallabh Bhai Patel Dairy | Khoya, Paneer, Milk & Curd in Kaushambi" />
