@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Sardar Vallabh Bhai Patel Dairy icon">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e6a4b"/>
+      <stop offset="100%" stop-color="#103b2a"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f6d98c"/>
+      <stop offset="100%" stop-color="#d8a646"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="url(#g1)"/>
+  <path d="M39 44c0-11.6 9.4-21 21-21h8c11.6 0 21 9.4 21 21v12H39V44Z" fill="#f7f3d9" opacity="0.86"/>
+  <path d="M32 55h64c8.8 0 16 7.2 16 16v18c0 8.8-7.2 16-16 16H32c-8.8 0-16-7.2-16-16V71c0-8.8 7.2-16 16-16Z" fill="#f5f8ef"/>
+  <path d="M44 64h40c3.3 0 6 2.7 6 6v4H38v-4c0-3.3 2.7-6 6-6Z" fill="#d3a85d"/>
+  <path d="M38 82h52c8.5 0 15.4 6.9 15.4 15.4v2.6H22.6v-2.6C22.6 88.9 29.5 82 38 82Z" fill="#dfeadf"/>
+  <path d="M29 90h70l-9 22H38l-9-22Z" fill="url(#g2)" opacity="0.9"/>
+  <path d="M50 20c7 7 16 10.5 26 10.5S72 27 79 20" stroke="#f3d689" stroke-width="6" stroke-linecap="round" opacity="0.9"/>
+</svg>

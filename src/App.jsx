@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import {
   ArrowRight, Check, ChevronDown, Clock3, Droplets, HeartHandshake,
-  Home, MapPin, Menu, MessageCircle, Milk, Phone, ShoppingBasket,
-  Sparkles, Store, Truck, UserRound, X
+  Home, MapPin, Menu, MessageCircle, Milk, Moon, Phone, ShoppingBasket,
+  Sparkles, Store, SunMedium, Truck, UserRound, X
 } from "lucide-react";
+import dineshSingh from "./assets/images/dinesh-singh.svg";
+import dairyAboutImage from "./assets/images/images.jpg";
+import sweetsImage from "./assets/images/sweets.jpg";
 import { business, products, whatsappMessage } from "./data/business";
+
+const heroImage = "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=1200&q=80";
+const aboutImage = dairyAboutImage;
+const fallbackDairyImage = dairyAboutImage;
 
 const translations = {
   en: {
@@ -100,9 +107,9 @@ const translations = {
       { label: "संपर्क", href: "#contact" }
     ],
     heroEyebrow: "लोकल • परिवार-आधारित • निजी सेवा",
-    heroTitle1: "शुद्ध डेयरी उत्पाद,",
-    heroTitle2: "प्यार से तैयार।",
-    heroText: "सरदार वल्लभ भाई पटेल डेयरी, बरौला, कौशांबी से ताज़ा खोया, पनीर, दही, दूध और फ्रीज़्ड मटर।",
+    heroTitle1: "ताज़ा डेयरी उत्पाद,",
+    heroTitle2: "सावधानी से तैयार।",
+    heroText: "सरदार वल्लभ भाई पटेल डेयरी, बरौला, कौशांबी से ताज़ा खोया, पनीर, दही, दूध और फ्रीज्ड मटर उपलब्ध हैं।",
     trust: ["ताज़ा उत्पाद", "स्थानीय डिलीवरी", "बल्क ऑर्डर"],
     explore: "अन्वेषण करें",
     offerKicker: "हम क्या देते हैं",
@@ -115,7 +122,7 @@ const translations = {
     aboutKicker: "डेयरी के बारे में",
     aboutTitle: "विश्वास पर आधारित स्थानीय डेयरी",
     aboutP1: "सरदार वल्लभ भाई पटेल डेयरी बरौला, पोस्ट नारा, कौशांबी, उत्तर प्रदेश में स्थित एक स्थानीय डेयरी है। यह शुद्ध खोया, पनीर, दही, दूध और फ्रीज़्ड मटर जैसी ताज़ा डेयरी वस्तुओं की आपूर्ति पर ध्यान केंद्रित करती है।",
-    aboutP2: "यह डेयरी दिनेश सिंह के स्वामित्व में है, जो ईमानदारी और सेवा के साथ ग्राहकों की आवश्यकताओं को पूरा करने में विश्वास रखते हैं।",
+    aboutP2: "यह डेयरी दिनेश सिंह के स्वामित्व में है, जो ईमानदारी, मेहनत और सेवा के साथ ग्राहकों की आवश्यकताओं को पूरा करने में विश्वास रखते हैं।",
     aboutP3: "चाहे आपको अपने घर, रेस्तराँ, मिठाई की दुकान, कैटरिंग ऑर्डर या पारिवारिक समारोह के लिए डेयरी उत्पाद चाहिए हों, आप सीधे संपर्क करके अपनी आवश्यकताएँ पूछ सकते हैं।",
     talkTo: "दिनेश सिंह से बात करें",
     ownerLabel: "मालिक",
@@ -149,7 +156,7 @@ const translations = {
     contactKicker: "संपर्क करें",
     contactTitle: "ताज़ा डेयरी उत्पाद चाहिए?",
     contactAccent: "आइए बात करें।",
-    contactText: "ऑर्डर, होम डिलीवरी और बल्क आवश्यकताओं के लिए सीधे संपर्क करें।",
+    contactText: "ऑर्डर, होम डिलीवरी और बड़े ऑर्डर की जानकारी के लिए सीधे संपर्क करें।",
     contactButton: "WhatsApp",
     quickLinksTitle: "त्वरित लिंक",
     orderDirectTitle: "सीधे ऑर्डर करें",
@@ -184,7 +191,7 @@ function ProductCard({ product, index, language }) {
           src={product.image}
           alt={`${product.name} from ${business.name}`}
           loading="lazy"
-          onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=900&q=80"; }}
+          onError={(e) => { e.currentTarget.src = fallbackDairyImage; }}
         />
         <span className="image-badge">{copy.freshBadge}</span>
       </div>
@@ -207,8 +214,22 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [language, setLanguage] = useState("en");
+  const [activeSection, setActiveSection] = useState("#home");
+  const [theme, setTheme] = useState(() => {
+    try {
+      const savedTheme = localStorage.getItem("dairy-theme");
+      if (savedTheme) return savedTheme;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch {
+      return "light";
+    }
+  });
   const copy = translations[language];
   const generalWhatsApp = whatsappMessage(copy.whatsappOrder);
+
+  useEffect(() => {
+    localStorage.setItem("dairy-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -216,10 +237,19 @@ function App() {
     onScroll();
 
     const observer = new IntersectionObserver(
-      entries => entries.forEach(entry => entry.isIntersecting && entry.target.classList.add("visible")),
+      entries => entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          if (entry.target.id) {
+            setActiveSection(`#${entry.target.id}`);
+          }
+        }
+      }),
       { threshold: 0.12 }
     );
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    document.querySelectorAll("main section[id], .reveal").forEach(el => observer.observe(el));
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       observer.disconnect();
@@ -228,15 +258,25 @@ function App() {
 
   const closeMenu = () => setMenuOpen(false);
   const switchLanguage = () => setLanguage(current => current === "en" ? "hi" : "en");
+  const handleNavClick = (href) => {
+    setActiveSection(href);
+    closeMenu();
+  };
 
   return (
-    <div className="site">
+    <div className={`site ${theme === "dark" ? "dark-mode" : ""}`}>
       <header className={`navbar ${scrolled ? "compact" : ""}`}>
         <a className="brand" href="#home" onClick={closeMenu}>
           <span className="brand-mark"><Milk size={22}/></span>
-          <span><strong>{copy.brandLine1}</strong><small>{copy.brandLine2}</small></span>
+          <span className="brand-copy">
+            <strong>{copy.brandLine1}</strong>
+            <small>{copy.brandLine2}</small>
+          </span>
         </a>
         <div className="header-actions">
+          <button className="theme-toggle" type="button" onClick={() => setTheme(current => current === "dark" ? "light" : "dark")} aria-label="Toggle dark mode">
+            {theme === "dark" ? <SunMedium size={16} /> : <Moon size={16} />}
+          </button>
           <button className="lang-toggle" type="button" onClick={switchLanguage} aria-label="Toggle language">
             {copy.toggleLabel}
           </button>
@@ -245,8 +285,17 @@ function App() {
           </button>
         </div>
         <nav className={menuOpen ? "nav-links open" : "nav-links"}>
-          {copy.nav.map(({ label, href }) => <a key={href} href={href} onClick={closeMenu}>{label}</a>)}
-          <WhatsAppButton className="nav-order" message={copy.whatsappOrder}>{copy.buttonOrder}</WhatsAppButton>
+          {copy.nav.map(({ label, href }) => (
+            <a
+              key={href}
+              href={href}
+              className={activeSection === href ? "active" : ""}
+              onClick={() => handleNavClick(href)}
+            >
+              {label}
+            </a>
+          ))}
+          <WhatsAppButton className={`nav-order ${activeSection === "#contact" ? "active" : ""}`} message={copy.whatsappOrder}>{copy.buttonOrder}</WhatsAppButton>
         </nav>
       </header>
 
@@ -269,7 +318,7 @@ function App() {
             </div>
             <div className="hero-visual reveal">
               <div className="hero-card main-product">
-                <img src="https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=1200&q=85" alt="Fresh dairy products" />
+                <img src={heroImage} alt="Fresh dairy products" />
                 <div className="hero-image-caption"><span className="dot"></span><div><strong>{language === "hi" ? "ताज़ा और स्थानीय" : "Fresh & Local"}</strong><small>{language === "hi" ? "सावधानी से तैयार" : "Prepared with care"}</small></div></div>
               </div>
               <div className="floating-card"><span className="float-icon"><HeartHandshake/></span><div><strong>{language === "hi" ? "निजी सेवा" : "Personal service"}</strong><small>{language === "hi" ? "दिनेश सिंह से सीधे बात करें" : "Talk directly with Dinesh Singh"}</small></div></div>
@@ -307,7 +356,7 @@ function App() {
 
         <section id="about" className="section about-section">
           <div className="container about-grid">
-            <div className="about-art reveal"><div className="about-image"><img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=1000&q=85" alt="Milk being prepared and served" loading="lazy"/></div><div className="location-pill"><MapPin size={17}/><span>{language === "hi" ? "बरौला, कौशांबी" : "Baraula, Kaushambi"}<br/><small>{language === "hi" ? "उत्तर प्रदेश" : "Uttar Pradesh"}</small></span></div></div>
+            <div className="about-art reveal"><div className="about-image"><img src={aboutImage} alt="Fresh milk and dairy products" loading="lazy" onError={(e) => { e.currentTarget.src = fallbackDairyImage; }}/></div><div className="location-pill"><MapPin size={17}/><span>{language === "hi" ? "बरौला, कौशांबी" : "Baraula, Kaushambi"}<br/><small>{language === "hi" ? "उत्तर प्रदेश" : "Uttar Pradesh"}</small></span></div></div>
             <div className="about-copy reveal">
               <span className="kicker">{copy.aboutKicker}</span>
               <h2>{copy.aboutTitle}</h2>
@@ -321,7 +370,9 @@ function App() {
 
         <section className="owner-section">
           <div className="container owner-card reveal">
-            <div className="owner-placeholder"><UserRound size={52}/><span>{copy.ownerLabel}</span></div>
+            <div className="owner-placeholder">
+              <img src={dineshSingh} alt={copy.ownerTitle} />
+            </div>
             <div><span className="kicker">{copy.ownerKicker}</span><h2>{copy.ownerTitle}</h2><p className="owner-role">{copy.ownerRole}</p><p>{copy.ownerText}</p><div className="hero-actions"><a className="btn btn-dark" href={callUrl}><Phone size={17}/> {copy.buttonCall}</a><WhatsAppButton>{copy.ownerButton}</WhatsAppButton></div></div>
           </div>
         </section>
@@ -337,7 +388,7 @@ function App() {
         <section id="bulk" className="section bulk-section">
           <div className="container bulk-grid">
             <div className="bulk-copy reveal"><span className="kicker">{copy.bulkKicker}</span><h2>{copy.bulkTitle}</h2><p>{copy.bulkText}</p><div className="bulk-list">{copy.bulkList.map(x => <span key={x}><Check size={16}/>{x}</span>)}</div><div className="hero-actions"><WhatsAppButton>{copy.bulkButton}</WhatsAppButton><a className="btn btn-outline" href={callUrl}><Phone size={17}/> {copy.buttonCall}</a></div></div>
-            <div className="bulk-visual reveal"><div className="bulk-image"><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1000&q=80" alt="Indian food prepared for a gathering" loading="lazy"/></div><div className="bulk-note"><ShoppingBasket size={20}/><span><strong>{copy.bulkNoteTitle}</strong><small>{copy.bulkNoteSub}</small></span></div></div>
+            <div className="bulk-visual reveal"><div className="bulk-image"><img src={sweetsImage} alt="Indian food prepared for a gathering" loading="lazy"/></div><div className="bulk-note"><ShoppingBasket size={20}/><span><strong>{copy.bulkNoteTitle}</strong><small>{copy.bulkNoteSub}</small></span></div></div>
           </div>
         </section>
 

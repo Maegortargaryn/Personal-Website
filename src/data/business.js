@@ -3,6 +3,7 @@ import paneer from "../assets/images/paneer.jpg";
 import curd from "../assets/images/curd.jpg";
 import milk from "../assets/images/images.jpg";
 import frozenPeas from "../assets/images/frozen-peas.jpg";
+import ghee from "../assets/images/ghee.jpg";
 
 export const business = {
   name: "Sardar Vallabh Bhai Patel Dairy",
@@ -38,6 +39,11 @@ export const products = [
     name: "Frozen Peas",
     description: "Convenient frozen peas for everyday cooking and food preparation.",
     image: frozenPeas,
+  },
+  {
+    name: "Ghee",
+    description: "Pure and aromatic desi ghee, perfect for traditional cooking, sweets, and daily meals.",
+    image: ghee,
   },
 ];
 
