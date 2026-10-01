@@ -36,7 +36,7 @@ To run this project locally on your machine, you need [Node.js](https://nodejs.o
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/dev-maegor/Sample-business-website.git
-   cd Personal-Website
+   cd Sample-business-website
    ```
 
 2. **Install dependencies:**
